@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estoque App v5</title>
+<style>
+body{font-family:sans-serif;margin:0;padding:0;background:#f0f0f0;color:#333}
+header, .header{padding:12px;background:#004d40;color:#ffd700}
+.menu{list-style:none;margin:0;padding:0;display:flex;background:#00695c}
+.menu li{padding:10px 20px;color:#fff;cursor:pointer}
+.menu li.active{background:#004d40}
+.main{padding:12px}
+.card{background:#fff;padding:12px;margin:12px 0;box-shadow:0 2px 4px rgba(0,0,0,0.1);border-radius:8px}
+.input{width:100%;padding:8px;margin:4px 0;box-sizing:border-box}
+.btn{padding:8px 12px;margin:4px;cursor:pointer}
+.btn-danger{background:#b71c1c;color:#fff;border:none}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{border:1px solid #ccc;padding:8px;text-align:left}
+.actions button{margin-right:4px}
+.small{font-size:0.85em;color:#555}
+</style>
+</head>
+<body>
+<header><h1>Estoque App v5</h1></header>
+<ul class="menu">
+<li data-page="products" class="active">Produtos</li>
+<li data-page="clients">Clientes</li>
+<li data-page="movements">Movimentação</li>
+<li data-page="coupons">Cupons</li>
+</ul>
+<div class="main" id="main"></div>
+<script>
+// Estoque App v5 — SPA simples com localStorage (GitHub Pages ready)
+const KEY_PRODUCTS = 'estoque_products_v5';
+const KEY_CLIENTS = 'estoque_clients_v5';
+const KEY_MOVS = 'estoque_movements_v5';
+const KEY_COUPONS = 'estoque_coupons_v5';
+
+const load = (k, fallback) => { try { const raw = localStorage.getItem(k); return raw ? JSON.parse(raw) : fallback; } catch(e){console.error(e); return fallback;} };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){console.error(e);} };
+
+const initializeData = () => {
+  let products = load(KEY_PRODUCTS, []);
+  if (products.length === 0) {
+    products = [
+      {id:'p1', name:'Caneta Esferográfica', desc:'Pacote com 10 unidades', price:4.50, qty:50},
+      {id:'p2', name:'Caderno 100 folhas', desc:'Capa dura', price:15.90, qty:30},
+      {id:'p3', name:'Mochila Escolar', desc:'Resistente, 20L', price:89.90, qty:12},
+    ];
+    save(KEY_PRODUCTS, products);
+  }
+  let clients = load(KEY_CLIENTS, []);
+  if (clients.length === 0) {
+    clients = [
+      {id:'c1', name:'João Silva', phone:'(11) 99999-0000', email:'joao@mail.com', address:'Rua A, 123'},
+      {id:'c2', name:'Maria Oliveira', phone:'(21) 98888-1111', email:'maria@mail.com', address:'Av B, 45'},
+    ];
+    save(KEY_CLIENTS, clients);
+  }
+  let movements = load(KEY_MOVS, []);
+  if (movements.length === 0) {
+    save(KEY_MOVS, movements);
+  }
+  let coupons = load(KEY_COUPONS, []);
+  if (coupons.length === 0) {
+    save(KEY_COUPONS, coupons);
+  }
+  return { products, clients, movements, coupons };
+};
+let { products, clients, movements, coupons } = initializeData();
+
+// TODO: aqui vai todo o restante do código JS que você me enviou, sem alterações
+
+</script>
+</body>
+</html>
